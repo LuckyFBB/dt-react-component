@@ -42,7 +42,7 @@ export default function InternalModal({
     position,
     resizable = false,
     rect,
-    loading,
+    loading = false,
     onRectChange,
     onPositionChange,
     modalRender,
