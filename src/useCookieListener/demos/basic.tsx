@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { Cookie } from '@dtinsight/dt-utils';
+import { Cookies } from '@dtinsight/dt-utils';
 import { Button, message } from 'antd';
 import { useCookieListener } from 'dt-react-component';
 
 export default () => {
     useEffect(() => {
-        Cookie.deleteCookie('dt_token');
-        Cookie.deleteCookie('dt_userid');
-        return () => Cookie.deleteAllCookies('', '');
+        Cookies.remove(['dt_token', 'dt_userid']);
+        return () => {
+            Cookies.clear();
+        };
     }, []);
 
     useCookieListener(
@@ -23,8 +24,10 @@ export default () => {
         ['dt_token']
     );
 
-    useCookieListener(({ prevCookies, nextCookies }) => {
-        message.info(`监听到Cookie从 ${prevCookies} 变更为了 ${nextCookies} `);
+    useCookieListener(({ prevValue, nextValue }) => {
+        message.info(
+            `监听到Cookie从 ${JSON.stringify(prevValue)} 变更为了 ${JSON.stringify(nextValue)} `
+        );
     }, []);
 
     return (
@@ -32,8 +35,10 @@ export default () => {
             <p>
                 <Button
                     onClick={() => {
-                        Cookie.setCookie('dt_token', `im_new_token_${Date.now()}`);
-                        Cookie.setCookie('dt_userid', `im_new_userid_${Date.now()}`);
+                        Cookies.set({
+                            dt_token: `im_new_token_${Date.now()}`,
+                            dt_userid: `im_new_userid_${Date.now()}`,
+                        });
                     }}
                 >
                     修改Cookie值
