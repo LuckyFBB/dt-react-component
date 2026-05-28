@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/DTStack/dt-react-component/compare/v5.0.0...v5.1.0) (2026-05-28)
+
+### Features
+
+-   [#580](https://github.com/DTStack/dt-react-component/issues/580), upgrade dt-utils to v2.1.0 and refresh lockfile ([#639](https://github.com/DTStack/dt-react-component/issues/639)) ([26741e8](https://github.com/DTStack/dt-react-component/commit/26741e8b9c746865d92670c93db2d1ccf8d1b80b))
+-   **chat:** support multiple conversation ([#623](https://github.com/DTStack/dt-react-component/issues/623)) ([c67e2fc](https://github.com/DTStack/dt-react-component/commit/c67e2fcc58358c2e034bdf790a8995e9ff3d312e))
+-   support AI quick command feat and upgrade lock file ([#600](https://github.com/DTStack/dt-react-component/issues/600)) ([a367535](https://github.com/DTStack/dt-react-component/commit/a3675352e5dd20d1a7cd02acc29e3dae71e39f21))
+
+### Bug Fixes
+
+-   **dropdown:** optimize Dropdown.Select ([#635](https://github.com/DTStack/dt-react-component/issues/635)) ([368e331](https://github.com/DTStack/dt-react-component/commit/368e331bc0a341f59ca701b6cd511b4d8dfee921))
+-   **modal:** add loading default value ([#628](https://github.com/DTStack/dt-react-component/issues/628)) ([b36ab2e](https://github.com/DTStack/dt-react-component/commit/b36ab2ec91ce909e6b92c43c444b4454f794b56a)), closes [#627](https://github.com/DTStack/dt-react-component/issues/627)
+-   remove deprecated code ([2a43252](https://github.com/DTStack/dt-react-component/commit/2a43252fca871a3709c2e09eb8638a73183800be))
+-   **tinyTag:** via getComputedTextLength api to measure svg text element ([#636](https://github.com/DTStack/dt-react-component/issues/636)) ([db846be](https://github.com/DTStack/dt-react-component/commit/db846bea3f331f419d8933963de0c9935ffa19a2))
+
 ## [5.0.0](https://github.com/DTStack/dt-react-component/compare/v4.3.1...v5.0.0) (2025-11-17)
 
 ### Features
