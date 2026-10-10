@@ -67,6 +67,66 @@ describe('Test useList hook', () => {
         expect(result.current.params).toEqual(expect.objectContaining({ search: 'test' }));
     });
 
+    it('Should merge object params while replacing arrays and nullable values', () => {
+        type Params = {
+            current: number;
+            filters: number[];
+            search?: string;
+            nullable: string | null;
+            nested: {
+                first?: number;
+                second?: number;
+                filters?: number[];
+                search?: string;
+            };
+        };
+        const fetcher = jest.fn().mockResolvedValue({ total: 0, data: [] });
+        const { result } = renderHook(() =>
+            useList(
+                fetcher,
+                {
+                    current: 1,
+                    filters: [1, 2, 3],
+                    search: 'test',
+                    nullable: 'value',
+                    nested: {
+                        first: 1,
+                        second: 2,
+                        filters: [1, 2, 3],
+                        search: 'nested',
+                    },
+                } as Params,
+                { immediate: false }
+            )
+        );
+
+        act(() => {
+            result.current.mutate(
+                {
+                    filters: [4, 5],
+                    search: undefined,
+                    nullable: null,
+                    nested: { first: 3, filters: [4, 5], search: undefined },
+                },
+                { revalidate: false }
+            );
+        });
+
+        expect(result.current.params).toEqual({
+            current: 1,
+            filters: [4, 5],
+            search: undefined,
+            nullable: null,
+            nested: {
+                first: 3,
+                second: 2,
+                filters: [4, 5],
+                search: undefined,
+            },
+            total: 0,
+        });
+    });
+
     it('Should support get data with current params', () => {
         const fetcher = jest.fn().mockResolvedValue({
             total: 1,
