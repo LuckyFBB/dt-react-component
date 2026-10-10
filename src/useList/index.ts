@@ -3,16 +3,21 @@ import { isPlainObject, merge } from 'lodash-es';
 
 const mergeParams = (
     previous: Record<string, any>,
-    next: Record<string, any>
+    next: Record<string, any>,
+    merged = new WeakMap<object, Record<string, any>>()
 ): Record<string, any> => {
+    const cached = merged.get(next);
+    if (cached) return cached;
+
     const result = { ...previous };
+    merged.set(next, result);
 
     Object.keys(next).forEach((key) => {
         const previousValue = previous[key];
         const nextValue = next[key];
         result[key] =
             isPlainObject(previousValue) && isPlainObject(nextValue)
-                ? mergeParams(previousValue, nextValue)
+                ? mergeParams(previousValue, nextValue, merged)
                 : nextValue;
     });
 

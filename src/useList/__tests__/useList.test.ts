@@ -127,6 +127,24 @@ describe('Test useList hook', () => {
         });
     });
 
+    it('Should preserve circular references when merging object params', () => {
+        const fetcher = jest.fn().mockResolvedValue({ total: 0, data: [] });
+        const previous: Record<string, any> = { value: 'previous' };
+        const next: Record<string, any> = { value: 'next' };
+        previous.self = previous;
+        next.self = next;
+        const { result } = renderHook(() =>
+            useList(fetcher, { nested: previous }, { immediate: false })
+        );
+
+        act(() => {
+            result.current.mutate({ nested: next }, { revalidate: false });
+        });
+
+        expect(result.current.params.nested.value).toBe('next');
+        expect(result.current.params.nested.self).toBe(result.current.params.nested);
+    });
+
     it('Should support get data with current params', () => {
         const fetcher = jest.fn().mockResolvedValue({
             total: 1,
